@@ -1,0 +1,148 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+
+int n,p,q,r,pilihan,jumlah[8],kode[8],totalharga[8],hargabarang,totalbayar; //deklarasi variabel dan function
+int harga[8]={15000,10000,12000,18000,17500,12500,20000,8000};
+int perhitungan(int a);
+int printout(int b);
+int mengulangi();
+void clean_input();
+int error_catch,error_catch1,error_catch2;
+char error_angka,error_angka1,error_angka2;
+
+
+int main(){
+	printf("=========TOKO BAHAGIA========\n\n");
+	printf("\nPetunjuk Cara Penggunaan Program :\n1. Program ini Membantu Anda Untuk Melakukan Pembelian Barang\n2. Pengguna Memilih Berapa Banyak Barang Yang Ingin Dibeli\n3. Kemudian Pengguna Memilih Barang Berdasarkan Kode Yang Tersedia\n4. Lalu Pengguna Memasukkan Jumlah Barang Yang Ingin Dibeli\n");
+	printf("\nKode Katalog Barang :\n(1) Sapu Ijuk \t\t(2) Sapu Lidi \t\t(3) Gayung	\t\t\n(4) Ember\t\t(5) Sikat\t\t(6) Keset\t\t\n(7) Kain Pel\t\t(8) Taplak Meja\t\t\n");
+
+	do{											//Input User Berapa Banyak Jenis Barang
+	printf("\n\nMasukkan Banyak Jenis Barang Yang Dibeli: ");
+
+	error_catch = scanf("%d%c", &n,&error_angka);
+	if( n<0 || (error_catch == 0)||(error_angka!='\n'|| n>8 )){
+		printf("Input Anda Salah, Mohon Ulangi");
+		clean_input();
+	}
+	}while( n<0  || (error_catch == 0)||(error_angka!='\n'|| n>8));
+
+	for (p=0; p<n; p++){                     //Input User yang akan dimasukkan ke array
+		do{
+		printf("Masukkan Kode Barang\t\t:");
+		error_catch1 = scanf("%d%c", &kode[p],&error_angka1);
+		if ( kode[p]<1 || kode[p]>8 || (error_catch1 == 0)||(error_angka1!='\n')){
+			printf("Input Anda Salah, Mohon Ulangi\n\n");
+			clean_input();
+			}
+		}while( kode[p]<1 || kode[p]>8 || (error_catch1 == 0)||(error_angka1!='\n'));
+
+		do{
+		printf("Masukkan Jumlah Barang\t\t:");
+		error_catch2 = scanf("%d%c", &jumlah[p],&error_angka2);
+		if ( jumlah[p]<0 || (error_catch2 == 0)||(error_angka2!='\n')){
+			printf("Input Anda Salah, Mohon Ulangi\n\n");
+			clean_input();
+			}
+		}while ( jumlah[p]<0 || (error_catch2 == 0)||(error_angka2!='\n'));
+		printf("\n");
+
+	}
+	perhitungan(n); //memanggil ulang function perhitungan
+	printout(n);	//memanggil ulang function printout
+	mengulangi();	//memanggil ulang function mengulangi
+
+}
+
+
+int perhitungan(int a){  //Fungsi Untuk Melakukan Penghitungan Pada Input
+
+	for (p=0; p<a; p++){
+		switch(kode[p]){
+			case 1:
+				totalharga[p]=jumlah[p]*harga[0];
+				break;
+			case 2:
+				totalharga[p]=jumlah[p]*harga[1];
+				break;
+			case 3:
+				totalharga[p]=jumlah[p]*harga[2];
+				break;
+			case 4:
+				totalharga[p]=jumlah[p]*harga[3];
+				break;
+			case 5:
+				totalharga[p]=jumlah[p]*harga[4];
+				break;
+			case 6:
+				totalharga[p]=jumlah[p]*harga[5];
+				break;
+			case 7:
+				totalharga[p]=jumlah[p]*harga[6];
+				break;
+			case 8:
+				totalharga[p]=jumlah[p]*harga[7];
+				break;
+			}
+		hargabarang=hargabarang+totalharga[p];
+	}
+	totalbayar=hargabarang;
+	return hargabarang;
+}
+
+int printout(int b){	//Menampilkan Hasil Dari Penghitungan
+	printf("\n==========================================================\n");
+	printf("%s\t\t%s\t%s\t%s\n","Barang","Jumlah","Harga Satuan(Rupiah)","Harga(Rupiah)");
+	printf("==========================================================\n");
+	for(r=0;r<b;r++){
+		switch(kode[r]){
+			case 1:
+				printf("%s\t%d\t%d\t\t\t%d\n","Sapu Ijuk",jumlah[r],harga[0],totalharga[r]);
+				break;
+			case 2:
+				printf("%s\t%d\t%d\t\t\t%d\n","Sapu Lidi",jumlah[r],harga[1],totalharga[r]);
+				break;
+			case 3:
+				printf("%s\t\t%d\t%d\t\t\t%d\n","Gayung",jumlah[r],harga[2],totalharga[r]);
+				break;
+			case 4:
+				printf("%s\t\t%d\t%d\t\t\t%d\n","Ember",jumlah[r],harga[3],totalharga[r]);
+				break;
+			case 5:
+				printf("%s\t\t%d\t%d\t\t\t%d\n","Sikat",jumlah[r],harga[4],totalharga[r]);
+				break;
+			case 6:
+				printf("%s\t\t%d\t%d\t\t\t%d\n","Keset",jumlah[r],harga[5],totalharga[r]);
+				break;
+			case 7:
+				printf("%s\t\t%d\t%d\t\t\t%d\n","Kain Pel",jumlah[r],harga[6],totalharga[r]);
+				break;
+			case 8:
+				printf("%s\t\t%d\t%d\t\t\t%d\n","Taplak Meja",jumlah[r],harga[7],totalharga[r]);
+				break;
+			}
+		}
+		printf("==========================================================\n");
+		printf("\t\tHarga Barang(Rupiah) =  Rp \t%d\n",hargabarang);
+}
+
+int mengulangi(){	//Fungsi Untuk Mengulang Program
+	printf("\n\nApakah Anda Ingin Mengulangi Program ?\nKetik Angka [1] Untuk Mengulangi Program \nDan Angka Lain Untuk Menghentikan Program\n");
+	printf("Masukan Pilihan =..");
+	scanf("%d",&pilihan);
+	switch(pilihan){
+		case 1:
+			system("cls");
+			return main();
+			break;
+		default:
+			printf("\nTerima Kasih Telah Melakukan Pembelian Di Toko Kami\n");
+			getch();
+			return 0;
+	}
+}
+
+void clean_input(){
+	while(getchar()!='\n');
+}
